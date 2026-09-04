@@ -2,6 +2,7 @@ const VisitSchedule = require("../models/VisitSchedule");
 const PGListing = require("../models/PGListing");
 const generateVisitCode = require("../utils/generateVisitCode");
 const { sendVisitCodeNotification } = require("../utils/sendNotification");
+const Notification = require("../models/Notification");
 
 const scheduleVisit = async (req, res, next) => {
   try {
@@ -29,7 +30,14 @@ const scheduleVisit = async (req, res, next) => {
       expiresAt,
     });
 
-    await sendVisitCodeNotification(pg.owner.phone, req.user.name, visitCode, scheduledDate);
+        await sendVisitCodeNotification(pg.owner.phone, req.user.name, visitCode, scheduledDate);
+
+    await Notification.create({
+      user: pg.owner._id,
+      message: `${req.user.name} scheduled a visit for ${pg.name} on ${new Date(scheduledDate).toLocaleDateString()}`,
+      type: "visit_scheduled",
+      relatedVisit: visit._id,
+    });
 
     res.status(201).json(visit);
   } catch (err) {

@@ -7,6 +7,7 @@ const errorHandler = require("./middleware/errorHandler");
 const authRoutes = require("./routes/authRoutes");
 const pgRoutes = require("./routes/pgRoutes");
 const visitRoutes = require("./routes/visitRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 
 const app = express();
 
@@ -18,6 +19,7 @@ connectDB();
 app.use("/api/auth", authRoutes);
 app.use("/api/pg", pgRoutes);
 app.use("/api/visits", visitRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "PG Finder API is running" });
