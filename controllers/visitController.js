@@ -58,6 +58,7 @@ const confirmVisit = async (req, res, next) => {
     }
 
     visit.status = "confirmed_by_owner";
+        visit.confirmedAt = new Date();
     await visit.save();
     res.json(visit);
   } catch (err) {

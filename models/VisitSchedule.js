@@ -13,6 +13,7 @@ const visitScheduleSchema = new mongoose.Schema(
       default: "pending",
     },
     expiresAt: { type: Date, required: true },
+        confirmedAt: { type: Date },
   },
   { timestamps: true }
 );

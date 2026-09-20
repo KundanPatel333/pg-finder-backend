@@ -8,6 +8,7 @@ const authRoutes = require("./routes/authRoutes");
 const pgRoutes = require("./routes/pgRoutes");
 const visitRoutes = require("./routes/visitRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 connectDB();
 
+app.use("/api/admin", adminRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/pg", pgRoutes);
 app.use("/api/visits", visitRoutes);
